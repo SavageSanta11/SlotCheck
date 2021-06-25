@@ -1,4 +1,4 @@
-# cowin
+# SlotCheck
 
 SlotCheck helps you look for vaccination appointments for Covaxin And Covishield. You can search by district or by PIN.
 
