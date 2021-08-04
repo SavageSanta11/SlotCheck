@@ -9,10 +9,9 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-class DropDownApp extends StatefulWidget {
-  @override
-  createState() => _DropDownAppState();
-}
+const Color color = Color(0xff344966);
+const Color buttoncolorno = Color(0xffFF5E5B);
+const Color buttoncoloryes = Color(0xff74A57F);
 
 String _province;
 DateTime selectedData;
@@ -68,6 +67,11 @@ void toggleDose1() {
   print(dose);
 }
 
+class DropDownApp extends StatefulWidget {
+  @override
+  createState() => _DropDownAppState();
+}
+
 class _DropDownAppState extends State<DropDownApp> {
   // ignore: deprecated_member_use
   List statesList = List();
@@ -103,10 +107,6 @@ class _DropDownAppState extends State<DropDownApp> {
   }
 
   Widget build(BuildContext context) {
-    const Color color = Color(0xff344966);
-    const Color buttoncolorno = Color(0xffFF5E5B);
-    const Color buttoncoloryes = Color(0xff74A57F);
-
     final body = Stack(children: <Widget>[
       Container(
         width: MediaQuery.of(context).size.width,
@@ -128,7 +128,8 @@ class _DropDownAppState extends State<DropDownApp> {
                 child: Column(
                   children: <Widget>[
                     new DropdownButton(
-                      style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
                       isExpanded: true,
                       icon: const Icon(
                         Icons.add_location,
@@ -160,7 +161,8 @@ class _DropDownAppState extends State<DropDownApp> {
                     ),
                     new DropdownButton(
                       isExpanded: true,
-                      style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
                       icon: const Icon(
                         Icons.gps_fixed,
                         color: Colors.white,
@@ -194,7 +196,7 @@ class _DropDownAppState extends State<DropDownApp> {
                     DateTimePicker(
                       type: DateTimePickerType.date,
                       dateMask: 'd MMM, yyyy',
-                      
+
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(const Duration(days: 7)),
                       icon: Icon(
@@ -340,7 +342,7 @@ class _SlotViewState extends State<SlotView> {
   }
 
   Widget build(BuildContext context) {
-     const Color color = Color(0xff344966);
+    const Color color = Color(0xff344966);
     final body = Stack(children: <Widget>[
       Container(
         width: MediaQuery.of(context).size.width,
@@ -404,7 +406,8 @@ class _SlotViewState extends State<SlotView> {
                     ),
                   ))
                 : SizedBox();
-          })]);
+          })
+    ]);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Slots"),
