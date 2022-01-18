@@ -196,10 +196,17 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+<<<<<<< HEAD
 
 
 
 class PinChoice extends StatefulWidget {
+=======
+// ignore: camel_case_types
+
+// ignore: camel_case_types
+class pinChoice extends StatefulWidget {
+>>>>>>> 5deb9db92bb04db7305013656f44c595e900aa60
   @override
   _pinChoiceState createState() => _pinChoiceState();
 }
