@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:cowin/widgets/drop_down.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,62 @@ void main() {
     home: HomePage(),
     debugShowCheckedModeBanner: false,
   ));
+}
+
+const Color color = Color(0xff344966);
+const Color buttoncolorno = Color(0xffFF5E5B);
+const Color buttoncoloryes = Color(0xff74A57F);
+
+String pin;
+String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+String dateparam = "";
+String pinUrl =
+    'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' +
+        pin +
+        '&date=' +
+        date;
+bool a1 = true;
+bool a2 = false;
+bool b1 = true;
+bool b2 = false;
+bool c1 = true;
+bool c2 = false;
+
+int agelim = 18;
+String vax = 'COVISHIELD';
+String dose = 'available_capacity_dose1';
+
+void toggleAge1() {
+  a1 = !a1;
+  a2 = !a2;
+  if (a1) {
+    agelim = 18;
+  } else {
+    agelim = 45;
+  }
+  print(agelim);
+}
+
+void toggleVax1() {
+  b1 = !b1;
+  b2 = !b2;
+  if (b1) {
+    vax = 'COVISHIELD';
+  } else {
+    vax = 'COVAXIN';
+  }
+  print(vax);
+}
+
+void toggleDose1() {
+  c1 = !c1;
+  c2 = !c2;
+  if (c1) {
+    dose = 'available_capacity_dose1';
+  } else {
+    dose = 'available_capacity_dose2';
+  }
+  print(dose);
 }
 
 class HomePage extends StatefulWidget {
@@ -120,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => pinChoice()),
+                                        builder: (context) => PinChoice()),
                                   );
                                 }),
                           ),
@@ -138,68 +196,16 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ignore: camel_case_types
 
-// ignore: camel_case_types
-class pinChoice extends StatefulWidget {
+
+
+class PinChoice extends StatefulWidget {
   @override
   _pinChoiceState createState() => _pinChoiceState();
 }
 
-String pin;
-String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
-String dateparam = "";
-String pinUrl =
-    'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' +
-        pin +
-        '&date=' +
-        date;
-bool a1 = true;
-bool a2 = false;
-bool b1 = true;
-bool b2 = false;
-bool c1 = true;
-bool c2 = false;
-
-int agelim = 18;
-String vax = 'COVISHIELD';
-String dose = 'available_capacity_dose1';
-
-void toggleAge1() {
-  a1 = !a1;
-  a2 = !a2;
-  if (a1) {
-    agelim = 18;
-  } else {
-    agelim = 45;
-  }
-  print(agelim);
-}
-
-void toggleVax1() {
-  b1 = !b1;
-  b2 = !b2;
-  if (b1) {
-    vax = 'COVISHIELD';
-  } else {
-    vax = 'COVAXIN';
-  }
-  print(vax);
-}
-
-void toggleDose1() {
-  c1 = !c1;
-  c2 = !c2;
-  if (c1) {
-    dose = 'available_capacity_dose1';
-  } else {
-    dose = 'available_capacity_dose2';
-  }
-  print(dose);
-}
-
 // ignore: camel_case_types
-class _pinChoiceState extends State<pinChoice> {
+class _pinChoiceState extends State<PinChoice> {
   TextEditingController _controller;
 
   List data;
@@ -216,9 +222,6 @@ class _pinChoiceState extends State<pinChoice> {
   }
 
   Widget build(BuildContext context) {
-    const Color color = Color(0xff344966);
-    const Color buttoncolorno = Color(0xffFF5E5B);
-    const Color buttoncoloryes = Color(0xff74A57F);
     final body = Stack(children: <Widget>[
       Container(
         width: MediaQuery.of(context).size.width,
@@ -247,7 +250,7 @@ class _pinChoiceState extends State<pinChoice> {
                   onChanged: (value) {
                     setState(() {
                       pin = value.toString();
-                      print(pin);
+
                       pinUrl =
                           'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' +
                               pin +
@@ -262,13 +265,13 @@ class _pinChoiceState extends State<pinChoice> {
                 child: DateTimePicker(
                   type: DateTimePickerType.date,
                   dateMask: 'd MMM, yyyy',
-                  
+
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 7)),
                   icon: Icon(Icons.event, color: Colors.white),
                   style: TextStyle(color: Colors.white),
                   dateLabelText: 'Date',
-                  
+
                   selectableDayPredicate: (date) {
                     // Disable weekend days to select from the calendar
                     return true;
@@ -389,7 +392,7 @@ class pinSlotView extends StatefulWidget {
 
 // ignore: camel_case_types
 class _pinSlotViewState extends State<pinSlotView> {
-  List data;
+  List data = [];
   @override
   void initState() {
     super.initState();
@@ -403,7 +406,7 @@ class _pinSlotViewState extends State<pinSlotView> {
     setState(() {
       var convertDataToJson = json.decode(response.body);
       data = convertDataToJson['sessions'];
-
+      print(data);
       print(pinUrl);
     });
     return "Success";
@@ -471,14 +474,16 @@ class _pinSlotViewState extends State<pinSlotView> {
                       ],
                     ),
                   ))
-                : SizedBox();
+                : Text("No slots", style: TextStyle(
+                  color: Colors.white,
+                ),);
           })
     ]);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Slots"),
       ),
-      body: body,
+      body: data.isNotEmpty ? body : Text("No slots"),
     );
   }
 }
